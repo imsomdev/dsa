@@ -1,37 +1,32 @@
-public class Solution {
+class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        int n1 = nums1.length;
+        int n2 = nums2.length;
         
-        int idx1 = 0;
-        int idx2 = 0;
+        if (n1 > n2) return findMedianSortedArrays(nums2, nums1);
         
-        // Merge process of merge sort
-        while (idx1 < nums1.length && idx2 < nums2.length) {
-            if (nums1[idx1] < nums2[idx2]) {
-                list.add(nums1[idx1]);
-                idx1++;
+        int lo = 0, hi = n1;
+        while (lo <= hi) {
+            int cut1 = lo + (hi - lo) / 2;
+            int cut2 = (n1 + n2 + 1) / 2 - cut1;
+            
+            int l1 = cut1 == 0 ? Integer.MIN_VALUE : nums1[cut1 - 1];
+            int l2 = cut2 == 0 ? Integer.MIN_VALUE : nums2[cut2 - 1];
+            int r1 = cut1 == n1 ? Integer.MAX_VALUE : nums1[cut1];
+            int r2 = cut2 == n2 ? Integer.MAX_VALUE : nums2[cut2];
+            
+            if (l1 <= r2 && l2 <= r1) {
+                if ((n1 + n2) % 2 == 0) {
+                    return (Math.max(l1, l2) + Math.min(r1, r2)) / 2.0;
+                } else {
+                    return Math.max(l1, l2);
+                }
+            } else if (l1 > r2) {
+                hi = cut1 - 1;
             } else {
-                list.add(nums2[idx2]);
-                idx2++;
+                lo = cut1 + 1;
             }
         }
-        
-        while (idx1 < nums1.length) {
-            list.add(nums1[idx1]);
-            idx1++;
-        }
-        
-        while (idx2 < nums2.length) {
-            list.add(nums2[idx2]);
-            idx2++;
-        }
-        
-        // Compute median
-        int n = list.size();
-        if (n % 2 == 0) {
-            return (list.get(n / 2 - 1) + list.get(n / 2)) / 2.0;
-        } else {
-            return list.get(n / 2);
-        }
+        return 0.0;
     }
 }
