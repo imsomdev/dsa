@@ -6,10 +6,7 @@ class Solution {
             while(!st.isEmpty() && temperatures[st.peek()]<= temperatures[i]){
                 st.pop();
             }
-            if(st.isEmpty()){
-                days[i] = 0;
-            }
-            else{
+            if(!st.isEmpty()){
                 days[i] = st.peek() - i;
             }
             st.push(i);
