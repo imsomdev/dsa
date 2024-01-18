@@ -8,10 +8,6 @@ class Solution {
         for (int end = 0; end < s.length(); end++) {
             charCount[s.charAt(end) - 'A']++;
             maxCharCount = Math.max(maxCharCount, charCount[s.charAt(end) - 'A']);
-
-            
-
-            // Explicitly check if the replacements needed exceed k
             if (end - start + 1 - maxCharCount > k) {
                 charCount[s.charAt(start) - 'A']--;
                 start++;
