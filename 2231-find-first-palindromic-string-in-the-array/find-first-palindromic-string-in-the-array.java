@@ -1,14 +1,11 @@
 class Solution {
     private Boolean isPalindrome(String s){
-        char[] arr = s.toCharArray();
         int start = 0;
         int end = s.length() - 1;
         while(start <=end){
-            if(arr[start] != arr[end]){
+            if(s.charAt(start++) != s.charAt(end--)){
                 return false;
             }
-            start ++;
-            end --;
         }
         return true;
     }
