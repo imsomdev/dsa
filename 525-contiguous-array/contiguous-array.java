@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 class Solution {
     public int findMaxLength(int[] nums) {
         HashMap<Integer, Integer> map = new HashMap<>();
