@@ -19,7 +19,7 @@ class Solution {
         List<Double> ans = new ArrayList<>();
         q.offer(root);
         while(!q.isEmpty()){
-            Double sum = 0.0;
+            double sum = 0;
             int levelSize = q.size();
             for(int i=0; i < levelSize; i++){
                 TreeNode currentNode = q.poll();
