@@ -1,32 +1,28 @@
 class Solution {
     public String minRemoveToMakeValid(String s) {
-        Stack<Integer> stk = new Stack<>();
-        ArrayList<Integer> temp = new ArrayList<>();
-        
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            if (ch == '(') {
-                stk.push(i);
-            } else if (ch == ')') {
-                if (!stk.isEmpty()) {
-                    stk.pop();
-                } else {
-                    temp.add(i);
+        char[] a = s.toCharArray();
+
+        int open = 0;//num of open parentheses
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == '(') open++;
+            else if (a[i] == ')') {//mark the remaining ')' as *
+                if (open > 0) open--;
+                else a[i] = '*';
+            }
+        }
+
+        if (open > 0) {//mark the remaining '(' as *
+            for (int i = a.length-1; i >= 0; i--) {
+                if (open > 0 && a[i] == '(') {
+                    a[i] = '*';
+                    open--;
                 }
             }
         }
-        
-        while (!stk.isEmpty()) {
-            temp.add(stk.pop());
-        }
-        
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < s.length(); i++) {
-            if (!temp.contains(i)) {
-                result.append(s.charAt(i));
-            }
-        }
-        
-        return result.toString();
+
+        int i = 0;
+        for (char c:a) if (c != '*') a[i++] = c;
+
+        return new String(a, 0, i);
     }
 }
