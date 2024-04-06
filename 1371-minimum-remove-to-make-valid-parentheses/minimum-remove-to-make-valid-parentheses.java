@@ -1,8 +1,4 @@
 class Solution {
-    public boolean containsIndex(ArrayList<Integer> indices, int index) {
-        return indices.contains(index);
-    }
-    
     public String minRemoveToMakeValid(String s) {
         Stack<Integer> stk = new Stack<>();
         ArrayList<Integer> temp = new ArrayList<>();
@@ -26,7 +22,7 @@ class Solution {
         
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
-            if (!containsIndex(temp, i)) {
+            if (!temp.contains(i)) {
                 result.append(s.charAt(i));
             }
         }
