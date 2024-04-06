@@ -1,28 +1,33 @@
 class Solution {
     public String minRemoveToMakeValid(String s) {
-        char[] a = s.toCharArray();
-
-        int open = 0;//num of open parentheses
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] == '(') open++;
-            else if (a[i] == ')') {//mark the remaining ')' as *
-                if (open > 0) open--;
-                else a[i] = '*';
-            }
-        }
-
-        if (open > 0) {//mark the remaining '(' as *
-            for (int i = a.length-1; i >= 0; i--) {
-                if (open > 0 && a[i] == '(') {
-                    a[i] = '*';
-                    open--;
+        StringBuilder result = new StringBuilder();
+        int balance = 0; // Maintain balance of parentheses
+        
+        // Forward pass: Remove excess closing parentheses
+        for (char ch : s.toCharArray()) {
+            if (ch == '(') {
+                balance++;
+            } else if (ch == ')') {
+                if (balance == 0) {
+                    continue; // Skip this closing parenthesis
                 }
+                balance--;
             }
+            result.append(ch);
         }
-
-        int i = 0;
-        for (char c:a) if (c != '*') a[i++] = c;
-
-        return new String(a, 0, i);
+        
+        // Backward pass: Remove excess opening parentheses
+        StringBuilder finalResult = new StringBuilder();
+        for (int i = result.length() - 1; i >= 0; i--) {
+            char ch = result.charAt(i);
+            if (ch == '(' && balance > 0) {
+                balance--;
+                continue; // Skip this opening parenthesis
+            }
+            finalResult.append(ch);
+        }
+        
+        // Reverse the final result to correct order
+        return finalResult.reverse().toString();
     }
 }
