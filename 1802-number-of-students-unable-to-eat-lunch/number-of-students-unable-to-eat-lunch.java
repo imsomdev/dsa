@@ -1,10 +1,10 @@
 class Solution {
-
     public int countStudents(int[] students, int[] sandwiches) {
         Queue<Integer> studentQueue = new LinkedList<>();
         int sandwichPointer = 0, unservedCount = 0;
 
-        for (int student : students) studentQueue.add(student);
+        for (int student : students)
+        studentQueue.add(student);
 
         while (!studentQueue.isEmpty() && unservedCount != studentQueue.size()) {
             if (studentQueue.peek() == sandwiches[sandwichPointer]) {
@@ -17,5 +17,5 @@ class Solution {
             }
         }
         return studentQueue.size();
-    }
+        }
 }
