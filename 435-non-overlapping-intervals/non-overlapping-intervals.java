@@ -11,19 +11,23 @@ class Solution {
                 }
             }
         );
-        int count = 0;
-        int end = Integer.MIN_VALUE;
-        
-        for (int[] interval : intervals) {
-            if (interval[0] < end) { // Overlapping intervals
-                count++;
-                // Choose the interval with the smaller end time to keep
-                end = Math.min(end, interval[1]);
-            } else {
-                end = interval[1];
-            }
+
+        for (int[] i : intervals) {
+            System.out.print(i[1]);
         }
-        
-        return count;
+        int res = 0;
+        int end = intervals[0][1];
+        int i = 1;
+        while (i < intervals.length) {
+            int start = intervals[i][0];
+            if (end > start) {
+                res++;
+                end = Math.min(end, intervals[i][1]);
+            } else {
+                end = intervals[i][1];
+            }
+            i++;
+        }
+        return res;
     }
 }
