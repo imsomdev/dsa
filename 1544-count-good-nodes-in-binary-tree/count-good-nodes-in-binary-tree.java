@@ -19,18 +19,11 @@ class Solution {
         if (node == null) {
             return 0;
         }
-
-        int count = 0;
-        if (node.val >= maxValue) {
-            count++;
-        }
-
+        int count = node.val >= maxValue ? 1 : 0;
         count += traverse(node.left, Math.max(maxValue, node.val));
         count += traverse(node.right, Math.max(maxValue, node.val));
-
         return count;
     }
-
     public int goodNodes(TreeNode root) {
         return traverse(root, root.val);
     }
