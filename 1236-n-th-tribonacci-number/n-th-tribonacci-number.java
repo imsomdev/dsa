@@ -1,21 +1,18 @@
 class Solution {
-    private Map<Integer, Integer> memo = new HashMap<>();
-    
     public int tribonacci(int n) {
-        if (memo.containsKey(n)) {
-            return memo.get(n);
+        if(n==0){
+            return 0;
         }
-        
-        int result;
-        if (n == 0) {
-            result = 0;
-        } else if (n == 1 || n == 2) {
-            result = 1;
-        } else {
-            result = tribonacci(n - 1) + tribonacci(n - 2) + tribonacci(n - 3);
+        if(n==1 || n==2){
+            return 1;
         }
-        
-        memo.put(n, result);
-        return result;
+        int prev1=0,prev2=1,prev3=1,curr=0;
+        for(int i=3;i<=n;i++){
+            curr = prev1+prev2+prev3;
+            prev1 = prev2;
+            prev2 = prev3;
+            prev3 = curr;
+        }
+        return curr;
     }
 }
