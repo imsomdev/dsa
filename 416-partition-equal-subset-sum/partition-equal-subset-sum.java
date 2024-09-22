@@ -28,10 +28,4 @@ class Solution {
 
         return dp[nums.length][target];
     }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        int[] nums = {1, 5, 11, 5};
-        System.out.println(solution.canPartition(nums));
-    }
 }
