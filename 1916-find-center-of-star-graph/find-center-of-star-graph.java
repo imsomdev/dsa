@@ -1,9 +1,22 @@
+import java.util.*;
+
 class Solution {
     public int findCenter(int[][] edges) {
-        if (edges[0][0] == edges[1][0] || edges[0][0] == edges[1][1]) {
-            return edges[0][0];
-        } else {
-            return edges[0][1];
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i = 0; i < edges.length; i++) {
+            map.putIfAbsent(edges[i][0], new ArrayList<>());
+            map.get(edges[i][0]).add(edges[i][1]);
+            
+            map.putIfAbsent(edges[i][1], new ArrayList<>());
+            map.get(edges[i][1]).add(edges[i][0]);
         }
+
+        for (int node : map.keySet()) {
+            if (map.get(node).size() == edges.length) {
+                return node; 
+            }
+        }
+
+        return -1; 
     }
 }
