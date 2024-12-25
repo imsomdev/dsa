@@ -1,30 +1,22 @@
 class Solution {
-
-    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
-        int m = image.length;
-        int n = image[0].length;
-        int originalColor = image[sr][sc];
-        if (originalColor == color) {
-            return image;
-        }
-        int[] dRow = { 0, 0, 1, -1 };
-        int[] dCol = { 1, -1, 0, 0 };
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[] { sr, sc });
-        while (!queue.isEmpty()) {
-            int[] pixel = queue.poll();
-            int r = pixel[0];
-            int c = pixel[1];
-            image[r][c] = color;
-            for (int i = 0; i < 4; i++) {
-                int newRow = r + dRow[i];
-                int newCol = c + dCol[i];
-                if (newRow >= 0 && newRow < m && newCol >= 0 && newCol < n && image[newRow][newCol] == originalColor) {
-                    queue.add(new int[] { newRow, newCol });
-                }
+    public void dfs(int[][] image, int orgColor, int[] delRow, int[] delCol,  int sr, int sc,int color){
+        image[sr][sc] = color;
+        for(int i=0; i< 4; i++){
+            int row = sr + delRow[i];
+            int col = sc + delCol[i];
+            if(row < image.length && row >= 0 && col <image[0].length && col >= 0 && image[row][col]==orgColor){
+                dfs(image, orgColor, delRow, delCol, row, col,color);
             }
         }
-
+    }
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int orgColor = image[sr][sc];
+        if(orgColor == color){
+            return image;
+        }
+        int[] delRow = {0, 1, 0, -1};
+        int[] delCol = {1, 0, -1, 0};
+        dfs(image, orgColor, delRow, delCol, sr, sc,color);
         return image;
     }
 }
