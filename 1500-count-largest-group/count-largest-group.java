@@ -10,29 +10,23 @@ class Solution {
     }
 
     public int countLargestGroup(int n) {
-        List<List<Integer>> arr = new ArrayList<>();
-
-        for (int i = 0; i <= 36; i++) {
-            arr.add(new ArrayList<>());
-        }
-
+        int[] count = new int[46];
         for (int i = 1; i <= n; i++) {
             int sod = SOD(i);
-            arr.get(sod).add(i);
+            count[sod]++;
         }
 
         int maxSize = 0;
-        int count = 0;
-
-        for (List<Integer> list : arr) {
-            if (list.size() > maxSize) {
-                maxSize = list.size();
-                count = 1;
-            } else if (list.size() == maxSize) {
-                count++;
+        int largestGroupsCount = 0;
+        for (int i = 0; i <= 45; i++) {
+            if (count[i] > maxSize) {
+                maxSize = count[i];
+                largestGroupsCount = 1;
+            } else if (count[i] == maxSize) {
+                largestGroupsCount++;
             }
         }
 
-        return count;
+        return largestGroupsCount;
     }
 }
