@@ -16,11 +16,9 @@ class Solution(object):
         for i in range(n-2, -1, -1):
             if nums[i] > nums[i+1]:
                 right_len[i] = right_len[i+1] + 1
-
         ans = 0
         for i in range(1, n-1):
             if left_len[i] > 1 and right_len[i] > 1:
                 ans = max(ans, left_len[i] + right_len[i] - 1)
-        print(left_len)
-        print(right_len)
+        
         return ans
