@@ -4,22 +4,15 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
-        res = len(prices)
+        res = 1
+        streak = 1
         i = 0
-        j = i+1
-        temp = 0
-        window = 0
-        while(j < len(prices)):
-            if prices[temp] - prices[j] == 1:
-                window += 1
-                temp += 1
-                j += 1
+        while(i < len(prices) - 1):
+            if prices[i] - prices[i+1] == 1:
+                streak += 1
             else:
-                res += window * (window+1) // 2
-                print(res)
-                window = 0
-                i = j
-                temp = j
-                j = i + 1
-        res += window * (window+1) // 2
+                streak = 1
+            res += streak
+            print(res)
+            i += 1
         return res
