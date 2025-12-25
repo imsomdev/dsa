@@ -5,14 +5,16 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        happiness.sort()
-        t = 0
-        i = len(happiness) - 1
+        max_heap = [-h for h in happiness]
+        heapq.heapify(max_heap)
+        
         res = 0
-        while(t < k):
-            temp = happiness[i] - t
-            if temp > 0:
-                res += temp
-            t += 1
-            i -= 1
+        for t in range(k):
+            current_happiness = -heapq.heappop(max_heap)
+            actual_gain = current_happiness - t
+            if actual_gain > 0:
+                res += actual_gain
+            else:
+                break
+                
         return res
