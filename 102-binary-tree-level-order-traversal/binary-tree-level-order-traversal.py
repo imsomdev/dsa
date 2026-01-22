@@ -10,17 +10,24 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: List[List[int]]
         """
-        res = []
-        
-        def dfs(root, level):
-            if not root:
-                return
-            if len(res) == level:
-                res.append([])
-            
-            res[level].append(root.val)
-            dfs(root.left, level + 1)
-            dfs(root.right, level + 1)
+        if not root:
+            return []
 
-        dfs(root, 0)
+        q =[]
+        res = []
+        q.append(root)
+        
+        while q:
+            q_len = len(q)
+            temp = []
+
+            for i in range(q_len):
+                item = q.pop(0)
+                temp.append(item.val)
+                if item.left:
+                    q.append(item.left)
+                if item.right:
+                    q.append( item.right)
+            res.append(temp)
+
         return res
