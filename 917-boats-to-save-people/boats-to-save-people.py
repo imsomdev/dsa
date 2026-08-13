@@ -8,14 +8,9 @@ class Solution:
             total_weight = people[l] + people[h]
 
             if total_weight <= limit:
-                res += 1
                 l += 1
-                h -= 1
-            elif people[h] <= limit:
-                res += 1
-                h -= 1
-            else:
-                h -= 1
+            res += 1
+            h -= 1
         
         return res
 
