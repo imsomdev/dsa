@@ -6,7 +6,7 @@ class Solution:
         while l < r:
             mid = (l + r) // 2
             if x - arr[mid] > arr[mid+k] - x:
-                l += 1
+                l = mid + 1
             else:
                 r = mid
             
