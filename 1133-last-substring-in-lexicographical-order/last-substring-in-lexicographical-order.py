@@ -1,31 +1,23 @@
 class Solution:
     def lastSubstring(self, s: str) -> str:
-        i = 0
-        j = 1
         n = len(s)
 
-        while j < n:
-            if s[j] > s[i]:
-                i = j
-                j = i + 1
+        i = 0
+        j = 1
+        k = 0
 
-            elif s[j] == s[i]:
+        while j + k < n:
+
+            if s[i + k] == s[j + k]:
+                k += 1
+
+            elif s[i + k] > s[j + k]:
+                j = j + k + 1
                 k = 0
 
-                while j + k < n and s[j + k] == s[i + k]:
-                    k += 1
-
-                if j + k == n:
-                    break
-
-                elif s[j + k] > s[i + k]:
-                    i = max(i + k + 1, j)
-                    j = i + 1
-
-                else:
-                    j = j + k + 1
-
             else:
-                j += 1
+                i = max(i + k + 1, j)
+                j = i + 1
+                k = 0
 
         return s[i:]
