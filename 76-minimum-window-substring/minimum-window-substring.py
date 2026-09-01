@@ -5,44 +5,45 @@ class Solution:
         if not t:
             return ""
 
-        t_map = Counter(t)
-        s_map = {}
-
-        required = len(t_map)
+        tmap = Counter(t)
+        smap = {}
         formed = 0
-        l = 0
+        required = len(tmap)
+        l =0
 
         min_len = float("inf")
         min_l = 0
         min_r = 0
+        n = len(s)
 
-        for r in range(len(s)):
+        for r in range(n):
             char = s[r]
 
-            if char in t_map:
-                s_map[char] = s_map.get(char, 0) + 1
+            if char in tmap:
+                smap[char] = smap.get(char, 0) + 1
 
-                if s_map[char] == t_map[char]:
+                if smap[char] == tmap[char]:
                     formed += 1
 
             while formed == required:
-
                 if r - l + 1 < min_len:
                     min_len = r - l + 1
                     min_l = l
                     min_r = r
 
                 char = s[l]
+                
+                if char in tmap:
+                    smap[char] -= 1
 
-                if char in t_map:
-                    s_map[char] -= 1
-
-                    if s_map[char] < t_map[char]:
+                    if smap[char] < tmap[char]:
                         formed -= 1
-
+                
                 l += 1
-
+            
         if min_len == float("inf"):
             return ""
+        
+        return s[min_l:min_r+1]
 
-        return s[min_l:min_r + 1]
+            
