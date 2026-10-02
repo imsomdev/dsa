@@ -1,34 +1,21 @@
-class Solution(object):
-    def maxIncreasingSubarrays(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        left_len = []
-        left_len.append(1)
-        right_len = [1]
-        curr_len = 1
-        # for left increasing list
+class Solution:
+    def maxIncreasingSubarrays(self, nums: List[int]) -> int:
+        total_max = 0
+        curr_size = 1
+        prev_size = 0
+        total_size = 0
+        
         for i in range(1, len(nums)):
             if nums[i] > nums[i-1]:
-                curr_len += 1
+                curr_size += 1
+            
             else:
-                curr_len = 1
-            left_len.append(curr_len)
-        print(left_len)
-        # for right decreasing list
-        curr_len = 1
-        for i in range(len(nums)-2, -1, -1):
-            if nums[i] < nums[i+1]:
-                curr_len += 1
-            else:
-                curr_len = 1
-            right_len.append(curr_len)
-        print(right_len)
+                total_max = max(total_max, curr_size)
+                total_size = max(total_size, min(prev_size, curr_size))
+                prev_size = curr_size
+                curr_size = 1
         
-        ans = 0
-        reversed_right = right_len[::-1]
-        for i in range(0, len(nums)-1):
-            ans = max(ans,min(left_len[i], reversed_right[i+1]))
-        return ans
-        
+        total_max = max(total_max, curr_size)
+        total_size = max(total_size, min(prev_size, curr_size))
+
+        return max(total_max // 2, total_size)
