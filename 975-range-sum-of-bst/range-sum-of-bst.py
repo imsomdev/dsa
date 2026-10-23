@@ -17,8 +17,12 @@ class Solution:
             if low <= node.val <= high:
                 res += node.val
 
-            traverse(node.left)
-            traverse(node.right)
+            # BST optimization
+            if node.val > low:
+                traverse(node.left)
+
+            if node.val < high:
+                traverse(node.right)
 
         traverse(root)
         return res
